@@ -1,17 +1,26 @@
 <template>
   <b-container fluid>
-    <Login/>
+    <h1>teste</h1>
   </b-container>
 </template>
 
 <script>
-import Login from './Login.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
 
   components: {
-    Login
+  },
+
+  computed: mapState([
+    'userLogged',
+  ]),
+
+  created() {
+    if (!this.userLogged) {
+      this.$router.push('/login');
+    }
   },
 };
 </script>

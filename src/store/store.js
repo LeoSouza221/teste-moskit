@@ -5,8 +5,28 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    usuarioLogado: false,
-  }
+    userLogged: false,
+    user: {},
+  },
+
+  mutations: {
+    saveUser(state, user) {
+      state.user = user;
+    },
+
+    changeLoginStatus(state, status) {
+      state.userLogged = status;
+    },
+  },
+
+  actions: {
+    saveCurrentUser: ({ commit }, user) => new Promise((resolve) => {
+      commit('saveUser', user);
+      commit('changeLoginStatus', true);
+
+      resolve();
+    }),
+  },
 })
 
 export default store;

@@ -14,11 +14,11 @@ export default {
   },
 
   computed: mapState([
-    'usuarioLogado',
+    'userLogged',
   ]),
 
   created() {
-    if (!this.usuarioLogado) {
+    if (!this.userLogged) {
       this.$router.push('/login');
     }
   },

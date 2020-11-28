@@ -1,5 +1,9 @@
 <template>
   <b-row align-h="center" align-v="center" class="login">
+    <Alert
+      :message="message"
+      :dismissCountDown="dismissCountDown"
+    />
     <b-card
       style="max-width: 500px; width: 400px"
       title="Bem Vindo"
@@ -33,11 +37,18 @@
 
 <script>
 import http from '../utils/http';
+import Alert from '../components/Alert.vue';
 
 export default {
   name: 'Login',
 
+  components: {
+    Alert,
+  },
+
   data: () => ({
+    dismissCountDown: 0,
+    message: '',
     loginForm: {
       email: '',
       password: '',
@@ -56,24 +67,30 @@ export default {
           this.checkUser();
         })
         .catch((error) => console.error(error));
-
-      // this.$router.push('/');
     },
 
     checkUser() {
       const { email } = this.loginForm;
-      const userExist = this.users
+      const position = this.users
         .map((user) => user.username)
-        .includes(email);
-      
-      if (userExist) {
-        this.loginUser();
+        .findIndex((username) => username === email);
+
+      if (position >= 0) {
+        const user = this.users[0];
+        this.loginUser(user);
+
         return;
       }
+
+      this.dismissCountDown = 5;
+      this.message = 'Informações inválidas'
     },
  
-    loginUser() {
-      this.$router.push('/');
+    loginUser(user) {
+      this.$store.dispatch('saveCurrentUser', user)
+        .then(() => {
+          this.$router.push('/');
+        });
     },
   },
 };

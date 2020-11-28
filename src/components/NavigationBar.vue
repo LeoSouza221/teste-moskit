@@ -7,7 +7,7 @@
         <b-nav-item @click="redirectTo('/lista-empresas')">Empresas</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <h6 class="mr-2 mt-2 text-white">Ola, {{ user.name }}</h6>
+        <h6 class="mr-2 mt-2 text-white">Olá, {{ user.name }}</h6>
         <b-button
           size="sm"
           variant="danger"

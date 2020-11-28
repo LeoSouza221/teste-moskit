@@ -18,7 +18,6 @@ export default {
   ]),
 
   created() {
-    console.log('aki');
     if (!this.usuarioLogado) {
       this.$router.push('/login');
     }

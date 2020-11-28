@@ -5,7 +5,7 @@
       title="Bem Vindo"
     >
       <b-card-text>
-        <b-form @submit="loginUser">
+        <b-form @submit="getUsers">
           <b-form-group>
             <b-form-input
               type="email"
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import http from '../utils/http';
+
 export default {
   name: 'Login',
 
@@ -40,9 +42,36 @@ export default {
       email: '',
       password: '',
     },
+    users: [],
   }),
 
   methods: {
+    getUsers(evt) {
+      evt.preventDefault();
+
+      http('GET', 'users')
+        .then(({ results }) => {
+          this.users = results;
+
+          this.checkUser();
+        })
+        .catch((error) => console.error(error));
+
+      // this.$router.push('/');
+    },
+
+    checkUser() {
+      const { email } = this.loginForm;
+      const userExist = this.users
+        .map((user) => user.username)
+        .includes(email);
+      
+      if (userExist) {
+        this.loginUser();
+        return;
+      }
+    },
+ 
     loginUser() {
       this.$router.push('/');
     },

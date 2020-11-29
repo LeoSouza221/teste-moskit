@@ -47,7 +47,7 @@ export default {
     searchContacts(pagination) {
       this.loadingItems = true;
 
-      http('GET', 'contacts')
+      http.GET('contacts', pagination)
         .then(({ metadata: { pagination }, results }) => {
           // this.contacts = results;
           this.pagination = pagination;

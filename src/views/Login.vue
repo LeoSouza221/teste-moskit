@@ -60,7 +60,7 @@ export default {
     getUsers(evt) {
       evt.preventDefault();
 
-      http('GET', 'users')
+      http.GET('users')
         .then(({ results }) => {
           this.users = results;
 

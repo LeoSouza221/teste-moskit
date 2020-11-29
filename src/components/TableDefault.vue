@@ -1,5 +1,5 @@
 <template>
-  <b-row justify="center">
+  <b-row align-h="center">
     <b-col cols="12">
       <b-table
         striped
@@ -18,13 +18,15 @@
         </template>
       </b-table>
     </b-col>
-    <b-col cols="12">
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-      ></b-pagination>
+    <b-col cols="12" sm="6">
+       <b-row align-h="center">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          first-number
+        ></b-pagination>
+       </b-row>
     </b-col>
   </b-row>
 </template>

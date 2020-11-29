@@ -26,6 +26,10 @@ export default {
 
   data: () => ({
     loadingItems: false,
+    pagination: {
+      limit: 10,
+      total: 0,
+    },
     contacts: [],
     headers: [
       {
@@ -36,16 +40,17 @@ export default {
   }),
 
   created() {
-    this.searchContacts();
+    this.searchContacts(this.pagination);
   },
 
   methods: {
-    searchContacts() {
+    searchContacts(pagination) {
       this.loadingItems = true;
 
       http('GET', 'contacts')
-        .then(({ results }) => {
-          this.contacts = results;
+        .then(({ metadata: { pagination }, results }) => {
+          // this.contacts = results;
+          this.pagination = pagination;
           this.loadingItems = false;
         })
         .catch((error) => console.error(error));

@@ -89,7 +89,7 @@ export default {
     loginUser(user) {
       this.$store.dispatch('saveCurrentUser', user)
         .then(() => {
-          this.$router.push('/contatos');
+          this.$router.push('/contacts');
         });
     },
   },

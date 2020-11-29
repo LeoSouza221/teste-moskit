@@ -4,7 +4,7 @@
       <b-table
         striped
         small
-        :busy="loadingItems" 
+        :busy="loadingItems"
         :items="items"
         :fields="headers"
         :per-page="perPage"

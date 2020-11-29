@@ -7,7 +7,6 @@
           tooltipTitle="Nova Empresa"
           modalTitle="Nova Empresa"
           routeName="companies"
-          routerPush="CompanyDetails"
         />
       </b-row>
       <TableDefault

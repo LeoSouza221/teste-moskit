@@ -26,9 +26,9 @@ const routes = [
     component: () => import('../views/companies/Index.vue'),
   },
   {
-    path: "/contacts-details/:id",
-    name: "ContactDetails",
-    component: () => import('../views/contacts/ContactDetails.vue'),
+    path: "/details/:id",
+    name: "Details",
+    component: () => import('../components/Details'),
   },
 ];
 

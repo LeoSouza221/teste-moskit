@@ -74,10 +74,6 @@ export default {
       type: String,
       required: true,
     },
-    routerPush: {
-      type: String,
-      required: true,
-    },
   },
 
   data: () => ({
@@ -127,7 +123,11 @@ export default {
     
     contactDetails(contact) {
       const { id } = contact;
-      this.$router.push({ name: this.routerPush, params: { id: id }});
+      this.$router.push({
+        name: 'Details',
+        params: { id: id },
+        query: { routeName: this.routeName },
+      });
     },
   },
 };

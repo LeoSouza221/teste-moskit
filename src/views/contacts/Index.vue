@@ -7,7 +7,6 @@
           tooltipTitle="Novo Contato"
           modalTitle="Novo Contato"
           routeName="contacts"
-          routerPush="ContactDetails"
         />
       </b-row>
       <TableDefault

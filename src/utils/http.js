@@ -34,12 +34,12 @@ const http = {
     
     return newRequest(URL, config);
   },
-  POST: (route, body) => {
+  POST: (route, body = {}) => {
     const URL = formatUrl(route);
     const config = {
       method: 'POST',
       headers,
-      body
+      body: JSON.stringify(body),
     };
     
     return newRequest(URL, config);

@@ -16,6 +16,9 @@
             <strong>Loading...</strong>
           </div>
         </template>
+        <template #cell(emails)="data">
+          <div>{{ stringEmails(data.item.emails) }}</div>
+        </template>
       </b-table>
     </b-col>
     <b-col cols="12" sm="6">
@@ -33,12 +36,16 @@
 
 <script>
 export default {
-  name: 'TableDefault',
+  name: 'ContactsTable',
 
   props: {
     loadingItems: {
       type: Boolean,
       default: false,
+    },
+    pagination: {
+      type: Object,
+      required: true,
     },
     items: {
       type: Array,
@@ -51,9 +58,30 @@ export default {
   },
 
   data: () => ({
-    perPage: 20,
+    perPage: 10,
     currentPage: 1,
     rows: 0,
   }),
+
+  watch: {
+    pagination() {
+      this.adjustPagination();
+    },
+  },
+
+  methods: {
+    adjustPagination() {
+      const { total, start, limit } = this.paginacao;
+      this.perPage = limit;
+      this.currentPage = start + 1;
+      this.rows = total;
+    },
+
+    stringEmails(emailsArray) {
+      const emailString = emailsArray.map((email) => email.address).join(' ')
+      
+      return emailString;
+    },
+  },
 };
 </script>

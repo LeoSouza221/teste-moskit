@@ -10,6 +10,7 @@
         :items="contacts"
         :headers="headers"
         :pagination="pagination"
+        @new-search="searchContacts"
       />
     </b-container>
   </main>
@@ -32,7 +33,7 @@ export default {
     loadingItems: false,
     pagination: {
       limit: 10,
-      offset: 0,
+      start: 0,
       total: 0,
     },
     contacts: [],

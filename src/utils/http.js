@@ -21,7 +21,7 @@ function formatUrl(route, params) {
 function newRequest(URL, config) {
   return fetch(URL, config)
     .then((response) => response.json())
-    .catch((error) => console.error(error));
+    .catch((error) => error.json());
 }
 
 const http = {

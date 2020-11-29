@@ -16,11 +16,14 @@
       centered
       hide-footer
     >
-      <Alert
-        :message="message"
-        :dismissCountDown="dismissCountDown"
-      />
-      <b-form @submit="defineEmailSAndSave">
+      <b-row align-h="center">
+         <Alert
+          :message="message"
+          :variant="variant"
+          :dismissCountDown="dismissCountDown"
+        />
+      </b-row>
+      <b-form @submit="defineEmailsAndSave">
         <b-form-group>
           <b-form-input
             type="text"
@@ -36,6 +39,7 @@
             rows="3"
             max-rows="6"
           ></b-form-textarea>
+          <CompanyAutocomplete />
         </b-form-group>
         <b-row align-h="center">
           <b-button type="submit" variant="success">Salvar</b-button>
@@ -48,16 +52,19 @@
 <script>
 import http from '../../utils/http';
 import Alert from '../../components/Alert.vue';
+import CompanyAutocomplete from '../../components/CompanyAutocomplete.vue';
 
 export default {
   name: 'ContactsCreate',
 
   components: {
     Alert,
+    CompanyAutocomplete,
   },
 
   data: () => ({
     dismissCountDown: 0,
+    variant: 'danger',
     emails: '',
     employees: '',
     message: '',
@@ -79,27 +86,34 @@ export default {
     saveContact() {
       http.POST('contacts', this.newContact)
         .then((response) => {
-          if (response.hasOwnProperty('message')) {
-            const { message } = response;
-
-            this.message = message;
-            this.dismissCountDown = 5;
-          }
-
-          console.log(response);
+          this.showMessage('Sucesso', 'success');
+          // this.contactDetails();
         })
         .catch((error) => {
           console.error(error);
         });
     },
 
-    defineEmailSAndSave(evt) {
+    defineEmailsAndSave(evt) {
       evt.preventDefault();
 
-      this.newContact.emails = this.emails.split(',')
-        .map((email) => ({ address: email.trim() }));
+      if (this.emails.length) {
+        this.emails.split(',');
+
+        this.newContact.emails = emailsArray.map((email) => ({ address: email.trim() }));
+      }
 
       this.saveContact();
+    },
+
+    showMessage(message, color) {
+      this.variant = color;
+      this.message = message;
+      this.dismissCountDown = 5;
+    },
+    
+    contactDetails(contact) {
+      this.$router.push({ name: 'ContactDetails', params: { id: quadrinho.id }});
     },
   },
 };

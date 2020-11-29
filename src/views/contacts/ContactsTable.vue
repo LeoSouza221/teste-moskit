@@ -8,7 +8,6 @@
         :items="items"
         :fields="headers"
         :per-page="perPage"
-        :current-page="currentPage"
       >
         <template #table-busy>
           <div class="text-center text-danger my-2">
@@ -28,6 +27,7 @@
           :total-rows="rows"
           :per-page="perPage"
           first-number
+          @change="changePage"
         ></b-pagination>
        </b-row>
     </b-col>
@@ -64,16 +64,16 @@ export default {
   }),
 
   watch: {
-    pagination() {
+    items() {
       this.adjustPagination();
     },
   },
 
   methods: {
     adjustPagination() {
-      const { total, start, limit } = this.paginacao;
+      const { total, start, limit } = this.pagination;
       this.perPage = limit;
-      this.currentPage = start + 1;
+      this.currentPage = (start / limit) + 1;
       this.rows = total;
     },
 
@@ -81,6 +81,14 @@ export default {
       const emailString = emailsArray.map((email) => email.address).join(' ')
       
       return emailString;
+    },
+ 
+    changePage(page) {
+      const limit = this.perPage;
+      const start = (page - 1) * limit;
+      const pagination = { limit, start };
+
+      this.$emit('new-search', pagination);
     },
   },
 };

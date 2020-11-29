@@ -5,19 +5,18 @@
       variant="success"
       v-b-tooltip.hover
       v-b-modal.modal-create
-      title="Novo Contato"
+      :title="tooltipTitle"
     >
       <b-icon icon="plus-circle"></b-icon>
     </b-button>
-
     <b-modal
       id="modal-create"
-      title="Criar Contato"
+      :title="modalTitle"
       centered
       hide-footer
     >
       <b-row align-h="center">
-         <Alert
+        <Alert
           :message="message"
           :variant="variant"
           :dismissCountDown="dismissCountDown"
@@ -30,7 +29,7 @@
             required
             placeholder="Nome"
             class="my-2"
-            v-model="newContact.name"
+            v-model="newPost.name"
           ></b-form-input>
           <b-form-textarea
             id="textarea"
@@ -50,16 +49,31 @@
 </template>
 
 <script>
-import http from '../../utils/http';
-import Alert from '../../components/Alert.vue';
-import CompanyAutocomplete from '../../components/CompanyAutocomplete.vue';
+import http from '../utils/http';
+import Alert from './Alert.vue';
+import CompanyAutocomplete from './CompanyAutocomplete.vue';
 
 export default {
-  name: 'ContactsCreate',
+  name: 'FormDefault',
 
   components: {
     Alert,
     CompanyAutocomplete,
+  },
+
+  props: {
+    tooltipTitle: {
+      type: String,
+      default: 'Novo',
+    },
+    modalTitle: {
+      type: String,
+      default: 'Novo',
+    },
+    routeName: {
+      type: String,
+      required: true,
+    },
   },
 
   data: () => ({
@@ -68,7 +82,7 @@ export default {
     emails: '',
     employees: '',
     message: '',
-    newContact: {
+    newPost: {
       name: '',
       responsible: {
         id: '49785',
@@ -79,12 +93,8 @@ export default {
   }),
 
   methods: {
-    closeModal() {
-      this.$refs['modal-create'].hide();
-    },
-
     saveContact() {
-      http.POST('contacts', this.newContact)
+      http.POST(this.routeName, this.newPost)
         .then((response) => {
           this.showMessage('Sucesso', 'success');
           this.contactDetails(response);
@@ -98,7 +108,7 @@ export default {
       evt.preventDefault();
 
       if (this.emails.length) {
-        this.newContact.emails= this.emails.split(',')
+        this.newPost.emails= this.emails.split(',')
           .map((email) => ({ address: email.trim() }));
       }
 
@@ -113,7 +123,11 @@ export default {
     
     contactDetails(contact) {
       const { id } = contact;
-      this.$router.push({ name: 'ContactDetails', params: { id: id }});
+      this.$router.push({
+        name: 'Details',
+        params: { id: id },
+        query: { routeName: this.routeName },
+      });
     },
   },
 };

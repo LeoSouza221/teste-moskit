@@ -50,7 +50,7 @@ export default {
     dismissCountDown: 0,
     message: '',
     loginForm: {
-      email: '',
+      email: 'leonardo@moskitselecao.com.br',
       password: '',
     },
     users: [],

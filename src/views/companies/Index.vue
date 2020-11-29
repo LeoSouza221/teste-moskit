@@ -3,8 +3,13 @@
     <b-container class="mt-3">
       <b-row>
         <h2 class="bd-content-title">Empresas</h2>
+        <FormDefault
+          tooltipTitle="Nova Empresa"
+          modalTitle="Nova Empresa"
+          routeName="companies"
+        />
       </b-row>
-      <CompaniesTable
+      <TableDefault
         :loadingItems="loadingItems"
         :items="companies"
         :headers="headers"
@@ -17,13 +22,15 @@
 
 <script>
 import http from '../../utils/http';
-import CompaniesTable from './CompaniesTable.vue';
+import TableDefault from '../../components/TableDefault.vue';
+import FormDefault from '../../components/FormDefault.vue';
 
 export default {
   name: 'Companies',
 
   components: {
-    CompaniesTable,
+    TableDefault,
+    FormDefault,
   },
 
   data: () => ({

@@ -3,9 +3,14 @@
     <b-container class="mt-3">
       <b-row>
         <h2 class="bd-content-title">Contatos</h2>
-        <ContatcsCreate/>
+        <FormDefault
+          tooltipTitle="Novo Contato"
+          modalTitle="Novo Contato"
+          routeName="contacts"
+          routerPush="ContactDetails"
+        />
       </b-row>
-      <ContactsTable
+      <TableDefault
         :loadingItems="loadingItems"
         :items="contacts"
         :headers="headers"
@@ -18,15 +23,15 @@
 
 <script>
 import http from '../../utils/http';
-import ContactsTable from './ContactsTable.vue';
-import ContatcsCreate from './ContactsCreate.vue';
+import TableDefault from '../../components/TableDefault.vue';
+import FormDefault from '../../components/FormDefault.vue';
 
 export default {
   name: 'Contacts',
 
   components: {
-    ContactsTable,
-    ContatcsCreate,
+    TableDefault,
+    FormDefault,
   },
 
   data: () => ({

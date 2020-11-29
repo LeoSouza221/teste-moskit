@@ -15,7 +15,7 @@
           title="Sair"
           @click="userLogout"
         >
-          <b-icon icon="box-arrow-right" aria-label="Help"></b-icon>
+          <b-icon icon="box-arrow-right"></b-icon>
         </b-button>
       </b-navbar-nav>
     </b-navbar>

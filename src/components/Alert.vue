@@ -3,7 +3,7 @@
     <b-alert
       :show="dismissCountDown"
       dismissible
-      variant="danger"
+      :variant='variant'
     >
       <p>{{ message }}</p>
     </b-alert>
@@ -15,6 +15,10 @@ export default {
   name: 'Alert',
 
   props: {
+    variant: {
+      type: String,
+      default: 'danger',
+    },
     message: {
       type: String,
       required: true,

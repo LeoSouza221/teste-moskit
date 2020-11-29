@@ -8,13 +8,15 @@
         :items="items"
         :fields="headers"
         :per-page="perPage"
-        :current-page="currentPage"
       >
         <template #table-busy>
           <div class="text-center text-danger my-2">
             <b-spinner class="align-middle"></b-spinner>
             <strong>Loading...</strong>
           </div>
+        </template>
+        <template #cell(emails)="data">
+          <div>{{ stringEmails(data.item.emails) }}</div>
         </template>
       </b-table>
     </b-col>
@@ -25,6 +27,7 @@
           :total-rows="rows"
           :per-page="perPage"
           first-number
+          @change="changePage"
         ></b-pagination>
        </b-row>
     </b-col>
@@ -33,12 +36,16 @@
 
 <script>
 export default {
-  name: 'TableDefault',
+  name: 'ContactsTable',
 
   props: {
     loadingItems: {
       type: Boolean,
       default: false,
+    },
+    pagination: {
+      type: Object,
+      required: true,
     },
     items: {
       type: Array,
@@ -51,9 +58,38 @@ export default {
   },
 
   data: () => ({
-    perPage: 20,
+    perPage: 10,
     currentPage: 1,
     rows: 0,
   }),
+
+  watch: {
+    items() {
+      this.adjustPagination();
+    },
+  },
+
+  methods: {
+    adjustPagination() {
+      const { total, start, limit } = this.pagination;
+      this.perPage = limit;
+      this.currentPage = (start / limit) + 1;
+      this.rows = total;
+    },
+
+    stringEmails(emailsArray) {
+      const emailString = emailsArray.map((email) => email.address).join(' ')
+      
+      return emailString;
+    },
+ 
+    changePage(page) {
+      const limit = this.perPage;
+      const start = (page - 1) * limit;
+      const pagination = { limit, start };
+
+      this.$emit('new-search', pagination);
+    },
+  },
 };
 </script>

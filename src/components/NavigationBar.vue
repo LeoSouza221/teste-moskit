@@ -4,7 +4,7 @@
       <b-navbar-brand @click="redirectTo('/home')">Moskit</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item @click="redirectTo('/contacts')">Contatos</b-nav-item>
-        <b-nav-item @click="redirectTo('/companys')">Empresas</b-nav-item>
+        <b-nav-item @click="redirectTo('/companies')">Empresas</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <h6 class="mr-2 mt-2 text-white">Olá, {{ user.name }}</h6>
@@ -48,7 +48,7 @@ export default {
     },
 
     redirectTo(route) {
-      this.router.push(route);
+      this.$router.push(route);
     },
   },
 }

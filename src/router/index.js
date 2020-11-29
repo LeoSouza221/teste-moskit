@@ -20,6 +20,11 @@ const routes = [
     name: "Contacts",
     component: () => import('../views/contacts/Index.vue'),
   },
+  {
+    path: "/contacts-details/:id",
+    name: "ContactDetails",
+    component: () => import('../views/contacts/ContactDetails.vue'),
+  },
 ];
 
 const router = new VueRouter({

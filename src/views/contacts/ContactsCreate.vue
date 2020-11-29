@@ -87,7 +87,7 @@ export default {
       http.POST('contacts', this.newContact)
         .then((response) => {
           this.showMessage('Sucesso', 'success');
-          // this.contactDetails();
+          this.contactDetails(response);
         })
         .catch((error) => {
           console.error(error);
@@ -98,9 +98,8 @@ export default {
       evt.preventDefault();
 
       if (this.emails.length) {
-        this.emails.split(',');
-
-        this.newContact.emails = emailsArray.map((email) => ({ address: email.trim() }));
+        this.newContact.emails= this.emails.split(',')
+          .map((email) => ({ address: email.trim() }));
       }
 
       this.saveContact();
@@ -113,7 +112,8 @@ export default {
     },
     
     contactDetails(contact) {
-      this.$router.push({ name: 'ContactDetails', params: { id: quadrinho.id }});
+      const { id } = contact;
+      this.$router.push({ name: 'ContactDetails', params: { id: id }});
     },
   },
 };

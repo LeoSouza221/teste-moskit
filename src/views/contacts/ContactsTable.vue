@@ -78,7 +78,7 @@ export default {
     },
 
     stringEmails(emailsArray) {
-      const emailString = emailsArray.map((email) => email.address).join(' ')
+      const emailString = emailsArray.map((email) => email.address).join(' - ')
       
       return emailString;
     },

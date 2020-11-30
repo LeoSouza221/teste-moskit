@@ -60,7 +60,7 @@ export default {
     getUsers(evt) {
       evt.preventDefault();
 
-      http('GET', 'users')
+      http.GET('users')
         .then(({ results }) => {
           this.users = results;
 
@@ -89,7 +89,7 @@ export default {
     loginUser(user) {
       this.$store.dispatch('saveCurrentUser', user)
         .then(() => {
-          this.$router.push('/');
+          this.$router.push('/contacts');
         });
     },
   },

@@ -14,6 +14,10 @@ const store = new Vuex.Store({
       state.user = user;
     },
 
+    clearUser(state) {
+      state.user = {};
+    },
+
     changeLoginStatus(state, status) {
       state.userLogged = status;
     },
@@ -21,8 +25,17 @@ const store = new Vuex.Store({
 
   actions: {
     saveCurrentUser: ({ commit }, user) => new Promise((resolve) => {
+      localStorage.setItem('user', JSON.stringify(user));
       commit('saveUser', user);
       commit('changeLoginStatus', true);
+
+      resolve();
+    }),
+
+    clearCurrentUser: ({ commit }) => new Promise((resolve) => {
+      localStorage.removeItem('user');
+      commit('clearUser');
+      commit('changeLoginStatus', false);
 
       resolve();
     }),

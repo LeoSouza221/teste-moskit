@@ -11,6 +11,7 @@
       </b-row>
       <TableDefault
         :loadingItems="loadingItems"
+        typeEmp="employers"
         :items="contacts"
         :headers="headers"
         :pagination="pagination"
@@ -53,10 +54,6 @@ export default {
       {
         key: 'emails',
         label: 'Emails',
-      },
-      {
-        key: 'employers',
-        label: 'Contatos',
       },
     ],
   }),

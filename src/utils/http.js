@@ -1,8 +1,8 @@
 const baseUrl = 'https://api.moskitcrm.com/v1';
-// nao consigui criar o .env para a apikey
+
 const headers = new Headers({
   'Content-Type': 'application/json',
-  'apikey': '',
+  'apikey': '', //DEFINIR APIKEY
 })
 
 function formatUrl(route, params) {

@@ -34,9 +34,7 @@ export default {
   ]),
 
   created() {
-    if (!this.userLogged) {
-      this.$router.push('/login');
-    }
+    this.checkUserLogin();
   },
 
   methods: {
@@ -49,6 +47,20 @@ export default {
 
     redirectTo(route) {
       this.$router.push(route);
+    },
+
+    checkUserLogin() {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!user) {
+        this.$router.push('/login');
+        return;
+      }
+
+      this.$store.dispatch('saveCurrentUser', user)
+        .then(() => {
+          this.$router.push('/contacts');
+        });
     },
   },
 }

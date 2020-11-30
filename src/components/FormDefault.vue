@@ -101,7 +101,7 @@ export default {
     newPost: {
       name: '',
       responsible: {
-        id: '49785',
+        id: '',
       },
       emails: [],
       employers: [],

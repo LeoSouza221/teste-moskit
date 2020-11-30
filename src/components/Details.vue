@@ -1,5 +1,15 @@
 <template>
   <main class="details">
+    <b-button
+      size="md"
+      variant="success"
+      v-b-tooltip.hover
+      title="Voltar"
+      @click="backPage"
+      class="mt-3 ml-3 button-position"
+    >
+      <b-icon icon="arrow-left"></b-icon>
+    </b-button>
     <b-container class="container-align">
       <b-card
         tag="article"
@@ -83,6 +93,10 @@ export default {
         })
         .catch((error) => console.error(error));  
     },
+
+    backPage() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
@@ -101,5 +115,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .button-position {
+    position: absolute;
   }
 </style>

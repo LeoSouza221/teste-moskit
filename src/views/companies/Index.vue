@@ -54,10 +54,6 @@ export default {
         key: 'emails',
         label: 'Emails',
       },
-      {
-        key: 'employers',
-        label: 'Contatos',
-      },
     ],
   }),
 

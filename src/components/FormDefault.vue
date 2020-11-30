@@ -38,8 +38,25 @@
             rows="3"
             max-rows="6"
           ></b-form-textarea>
-          <CompanyAutocomplete />
+          <EmployerCreate
+            @add-employer="addEmployer"
+          />
         </b-form-group>
+         <div class="box" v-if="newPost[defineType].length">
+            <div
+              v-for="(employer, index) in newPost[defineType]"
+              :key="index"
+            >
+              <b-button
+                variant="success"
+                @click="removeCompany(employer.jobTitle)"
+                class="mx-2"
+              >
+                {{ employer.jobTitle }}
+                <b-icon icon="x-circle"></b-icon>
+              </b-button>
+            </div>
+          </div>
         <b-row align-h="center">
           <b-button type="submit" variant="success">Salvar</b-button>
         </b-row>
@@ -51,14 +68,14 @@
 <script>
 import http from '../utils/http';
 import Alert from './Alert.vue';
-import CompanyAutocomplete from './CompanyAutocomplete.vue';
+import EmployerCreate from './EmployerCreate';
 
 export default {
   name: 'FormDefault',
 
   components: {
     Alert,
-    CompanyAutocomplete,
+    EmployerCreate,
   },
 
   props: {
@@ -80,7 +97,6 @@ export default {
     dismissCountDown: 0,
     variant: 'danger',
     emails: '',
-    employees: '',
     message: '',
     newPost: {
       name: '',
@@ -88,9 +104,16 @@ export default {
         id: '49785',
       },
       emails: [],
+      employers: [],
       employees: [],
     },
   }),
+
+  computed: {
+    defineType() {
+      return this.routeName === 'companies' ? 'employees' : 'employers'
+    },
+  },
 
   methods: {
     saveContact() {
@@ -129,6 +152,35 @@ export default {
         query: { routeName: this.routeName },
       });
     },
+
+    addEmployer(employer) {
+      if (this.routeName === 'companies') {
+        this.newPost.employees.push(employer);
+        return;
+      }
+      this.newPost.employers.push(employer);
+    },
+
+    removeCompany(jobTitle) {
+      const position = this.newPost[this.defineType].findIndex((company) => company.jobTitle === jobTitle);
+
+      if (position >= 0) {
+        this.newPost.employers.splice(position, 1);
+      }
+    },
   },
 };
 </script>
+
+<style>
+  .box {
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    transition: height 0.5s ease-in;
+    border: 1px solid;
+    padding: 4px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+</style>

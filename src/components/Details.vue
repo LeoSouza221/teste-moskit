@@ -28,20 +28,20 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-row cols="12" md="6">
+            <b-col cols="12" md="6">
               <b-row align-h="start">
                 <b-col cols="12">
                   <h5>Contatos:</h5>
                 </b-col>
                 <b-col cols="12">
                   <ul>
-                    <li v-for="(email, index) in details.employers" :key="index">
+                    <li v-for="(email, index) in details[defineType]" :key="index">
                       {{ email.jobTitle }}
                     </li>
                   </ul>
                 </b-col>
               </b-row>
-            </b-row>
+            </b-col>
           </b-row>
         </b-card-text>
       </b-card>
@@ -65,6 +65,14 @@ export default {
     const { routeName } = this.$route.query;
 
     this.searchDetails(id, routeName);
+  },
+
+  computed: {
+    defineType() {
+      const { routeName } = this.$route.query;
+
+      return routeName === 'companies' ? 'employees' : 'employers'
+    },
   },
 
   methods: {

@@ -78,9 +78,15 @@ export default {
     },
 
     stringEmails(emailsArray) {
-      const emailString = emailsArray.map((email) => email.address).join(' - ')
+      const emailString = emailsArray.map((email) => email.address).join(' - ');
       
       return emailString;
+    },
+
+    stringEmployers(employersArray) {
+      const employerString = employersArray.map((employer) => employer.jobTitle).join(' - ');
+      
+      return employerString;
     },
  
     changePage(page) {

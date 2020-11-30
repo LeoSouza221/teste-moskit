@@ -1,5 +1,5 @@
-
-
+# Teste Moskit
+Projeto criado segundo os requisitos, utlizando VueJS, Webpack e VueBootstrap
 ## Baixar Dependencias
 ```
 npm install
